@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<marquee direction="right">
+    <font size="25">WebHooks</font>
+  </marquee>
+  
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head><body onload="type_text()" style="color: rgb(255, 0, 15); background-color: black; background-image: url(https://couleur-science.eu/img/ac/carbon-fiber.jpg);">
+
+<title>WebHooks</title>
+<link rel="stylesheet" type="text/css" href="./WebHook v1.2_files/css.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<style type="text/css">
+:root #content > #right > .dose > .dosesingle,
+:root #content > #center > .dose > .dosesingle
+{ display: none !important; }</style></head>
+<body bgcolor="#E6E6FA">
+
+
+<div class="caché">Pourquoi tu voles mon code enculé?</div>
+
+<style type="text/css">
+.caché {
+   position: absolute !important;
+   clip: rect(1px 1px 1px 1px);
+   clip: rect(1px, 1px, 1px, 1px);
+   height: 1px;
+   overflow: caché;
+   width: 1px;
+}
+</style>
+
+<br>
+<center><h3>URL Webhook</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="url" type="text" name="link" placeholder="Webhook URL"><span class="tag is-warning">Obligatoire</span></center>
+<br>
+<center><h3>Pseudo</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="name" type="text" name="Username (nick of hook)" placeholder="Nom d'utilisateur pour le bot"><span class="tag is-info">  Optionnel</span></center>
+<br>
+<center><h3>URL Avatar</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="avatar" type="text" name="Avatar of bot" placeholder="URL de l'image pour le webhook"><span class="tag is-info">  Optionnel</span></center>
+<br>
+<center><h3>Texte</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="content" type="text" name="msg content" placeholder="Message à faire envoyer par le bot"><span class="tag is-warning">Obligatoire</span></center>
+<br><br>
+<center><strong>Embed</strong></center>
+<center><h3>Autheur</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="author_name" type="text" name="author name" placeholder="Nom de l'autheur de l'embed"><span class="tag is-info">  Optionnel</span></center>
+<center><h3>Icone Embed</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="author_icon" type="text" name="author Avatar URL" placeholder="URL de l'image de l'autheur"><span class="tag is-info">  Optionnel</span></center>
+<br>
+<center><h3>Titre</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="embed_title" type="text" name="embed title" placeholder="Titre de l'embed"><span class="tag is-info">  Optionnel</span></center>
+<br>
+<center><h3>Contenu</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="embed_content" type="text" name="embed text" placeholder="Description/Contenu/Text de l'embed"><span class="tag is-info">  Optionnel</span></center>
+<br>
+<center><h3>Couleur barre latérale</h3></center>
+<center><input class="input" style="width:350px;font-size:10pt;" id="color" type="text" name="hex color" placeholder="Couleur de l'embed (exemple: #36393f)"><span class="tag is-info">  Optionnel</span></center>
+<br><br>
+<center><button id="send" class="button is-primary" onclick="send()">Envoyer</button></center>
+
+<script>
+function send(){
+	if(!document.getElementById('url').value){
+		alert("Tu dois obligatoirement mettre l'url d'un webhook.")
+	}
+	else{
+	var hookurl = document.getElementById('url').value + "/slack"
+	var msgJson
+	if(document.getElementById('author_icon').value || document.getElementById('author_name').value || document.getElementById('embed_title').value || document.getElementById('embed_content').value){
+		msgJson = {
+		 "username": document.getElementById('name').value,
+		 "icon_url": document.getElementById('avatar').value,
+		 "text": document.getElementById('content').value,
+		 "attachments":[{
+		   "author_icon": document.getElementById('author_icon').value,
+		   "author_name": document.getElementById('author_name').value,
+		   "color": document.getElementById('color').value,
+		   "fields": [{
+		    "title": document.getElementById('embed_title').value,
+		    "value": document.getElementById('embed_content').value,
+		   }]
+		  }]
+		}
+	}
+	else{
+		msgJson = {
+		  "username": document.getElementById('name').value,
+		  "icon_url": document.getElementById('avatar').value,
+		  "text": document.getElementById('content').value
+		}
+	}
+  post(hookurl, msgJson);
+}
+}
+</script>
+
+
+<script>
+function post(url, jsonmsg){
+	xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	var data = JSON.stringify(jsonmsg);
+	xhr.send(data);
+	xhr.onreadystatechange = function() {
+		if(this.status != 200){
+			alert(this.responseText);
+		}
+	}
+}
+</script>
+<center><div><span style="color:#ff0000;">Tu es G</span><span style="color:#ff4000;">a</span><span style="color:#ff7f00;">y</span><span style="color:#ffbf00;">!</span></div></center>
+
+</body></html>
